@@ -8,6 +8,15 @@ import { CreateInvoice } from '@/app/ui/invoices/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { fetchInvoicesPages } from '@/app/lib/data';
  
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Invoices | Acme Dashboard',
+  description: 'View and manage all your invoices in one place.',
+  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+};
+
+
 export default async function InvoicesPage({searchParams}:{searchParams?: {query?:string
   page?:string}}) {
   const query = searchParams?.query || ""
@@ -17,7 +26,7 @@ export default async function InvoicesPage({searchParams}:{searchParams?: {query
   const totalPages = await fetchInvoicesPages(query);
   
   return (
-    <div className="w-full">
+    <section className="w-full">
       <div className="flex w-full items-center justify-between">
         <h1 className={`${lusitana.className} text-2xl`}>Invoices</h1>
       </div>
@@ -31,6 +40,6 @@ export default async function InvoicesPage({searchParams}:{searchParams?: {query
       <div className="mt-5 flex w-full justify-center">
          <Pagination totalPages={totalPages} /> 
       </div>
-    </div>
+    </section>
   );
 }
