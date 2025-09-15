@@ -1,8 +1,8 @@
 import { montserrat } from "./ui/fonts";
 import "./ui/global.css"
-
 import { Metadata } from 'next';
- 
+import { ThemeProvider } from 'next-themes';
+
 export const metadata: Metadata = {
   title: {
     template: '%s | Acme Dashboard',
@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <title>Next.js Dashboard</title>
@@ -30,11 +30,11 @@ export default function RootLayout({
         <meta property="og:image" content="/opengraph-image.png" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className={`${montserrat.className} antialiased`}>
-        {children}
-        <footer className="py-10 flex justify-center items">
-          Hecho por Steve Moya Cepeda 
-        </footer>
+      <body className={`${montserrat.className} antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-white`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+          
+        </ThemeProvider>
       </body>
     </html>
   );

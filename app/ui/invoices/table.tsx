@@ -14,17 +14,17 @@ export default async function InvoicesTable({
   const invoices = await fetchFilteredInvoices(query, currentPage);
 
   return (
-    
+
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
-        <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
+        <div className="rounded-lg bg-gray-50 dark:bg-gray-800 p-2 md:pt-0">
           <div className="md:hidden">
             {invoices?.map((invoice) => (
               <div
                 key={invoice.id}
-                className="mb-2 w-full rounded-md bg-white p-4"
+                className="mb-2 w-full rounded-md bg-white dark:bg-gray-700 p-4"
               >
-                <div className="flex items-center justify-between border-b pb-4">
+                <div className="flex items-center justify-between border-b dark:border-gray-600 pb-4">
                   <div>
                     <div className="mb-2 flex items-center">
                       <Image
@@ -34,9 +34,9 @@ export default async function InvoicesTable({
                         height={28}
                         alt={`${invoice.name}'s profile picture`}
                       />
-                      <p>{invoice.name}</p>
+                      <p className="dark:text-white">{invoice.name}</p>
                     </div>
-                    <p className="text-sm text-gray-500">{invoice.email}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-300">{invoice.email}</p>
                   </div>
                   <InvoiceStatus status={invoice.status} />
                 </div>
@@ -55,22 +55,22 @@ export default async function InvoicesTable({
               </div>
             ))}
           </div>
-          <table className="hidden min-w-full text-gray-900 md:table">
+          <table className="hidden min-w-full text-gray-900 dark:text-white md:table">
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
-                <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                <th scope="col" className="px-4 py-5 font-medium sm:pl-6 dark:text-gray-200">
                   Customer
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3 py-5 font-medium dark:text-gray-200">
                   Email
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3 py-5 font-medium dark:text-gray-200">
                   Amount
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3 py-5 font-medium dark:text-gray-200">
                   Date
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3 py-5 font-medium dark:text-gray-200">
                   Status
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
@@ -78,7 +78,7 @@ export default async function InvoicesTable({
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white">
+            <tbody className="bg-white dark:bg-gray-700">
               {invoices?.map((invoice) => (
                 <tr
                   key={invoice.id}
