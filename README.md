@@ -8,70 +8,153 @@
 
 [![Website](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://nextjs-dashboard-stevemoya.vercel.app/)
 
-## Descripción 📑
+A modern dashboard application built with Next.js 14, featuring authentication, dark mode, and various management tools.
 
-Este es un proyecto, de Dashboard con authenticacion, creacion de usuarios, facturas, y claro estas poder ver analiticas.
+## Features
 
-## Tecnologías 🛠
-<!-- Iconos sacados de: https://github.com/hendrasob/badges/blob/master/README.md y https://github.com/alexandresanlim/Badges4-README.md-Profile -->
-![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JS](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
-![POSTGRESQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-![REACTJS](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TAILWINDCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![TYPESCRIPT](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![NEXTJS](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+- ⚡ **Next.js 14** with App Router
+- 🔐 **Authentication** using NextAuth.js
+- 🌓 **Dark Mode** support
+- 📊 **Dashboard Analytics**
+- 💳 **Invoice Management**
+- 👥 **Customer Management**
+- 🔔 **Toast Notifications** with Sonner
+- 🎨 **Tailwind CSS** for styling
+- 🔍 **Search Functionality**
+- 📱 **Responsive Design**
+
+## Tech Stack
+
+- [Next.js 14](https://nextjs.org/)
+- [React 18](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [NextAuth.js](https://next-auth.js.org/)
+- [Sonner](https://sonner.emilkowal.ski/)
+- [Vercel Postgres](https://vercel.com/postgres)
+- [Zod](https://zod.dev/)
 
 ## IDE 💻
 
 ![VisualStudioCode](https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)
 
 
-### Requisitos Previos
+## Getting Started
 
-Asegúrate de tener instalado Node.js en tu sistema para poder trabajar con Astro y React. Puedes descargarlo desde [nodejs.org](https://nodejs.org/).
+### Prerequisites
 
-#### Recuerda!
-Necesitas colocar tus variables de entorno, en el archivo **.env.example** estan todas las que necesitas solo crea tu .env utilizando este archivo como ejemplo
+- Node.js 20 or later
+- npm or yarn
 
-### Instalación🏗️
+### Installation
 
-Clona este repositorio en tu máquina local y navega al directorio del proyecto:
-
+1. Clone the repository:
 ```bash
-git clone https://github.com/SteveMoya/nextjs-dashboard
+git clone https://github.com/yourusername/nextjs-dashboard.git
 cd nextjs-dashboard
 ```
 
-Instala las dependencias del proyecto:
-
+2. Install dependencies:
 ```bash
 npm install
+# or
+yarn install
 ```
 
-### Ejecutar en Desarrollo
+3. Copy the example environment file:
+```bash
+cp .env.example .env
+```
 
-Para iniciar el servidor de desarrollo y trabajar en mejoras:
+4. Update the environment variables in `.env` with your configuration
 
+5. Set up the database:
+```bash
+npm run seed
+```
+
+6. Start the development server:
 ```bash
 npm run dev
 ```
 
-Visita `http://localhost:3000` para ver tu proyecto en acción.
+The application will be available at `http://localhost:3000`
 
-### Construir para Producción
+## Scripts
 
-Para construir tu proyecto para producción, ejecuta:
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run seed` - Seed the database
+- `npm run lint` - Run ESLint
+- `npm run prettier` - Format code with Prettier
 
-```bash
-npm run build
+## Project Structure
+
 ```
+nextjs-dashboard/
+├── app/
+│   ├── api/         # API routes
+│   ├── dashboard/   # Dashboard pages
+│   ├── lib/        # Utility functions
+│   └── ui/         # UI components
+├── public/         # Static files
+├── scripts/        # Database scripts
+└── types/         # TypeScript types
+```
+
+## Features in Detail
+
+### Authentication
+- Secure login system
+- Protected routes
+- Session management
+
+### Dashboard
+- Revenue overview
+- Latest invoices
+- Customer information
+- Interactive charts
+
+### Invoice Management
+- Create new invoices
+- Edit existing invoices
+- Delete invoices
+- Search and filter
+
+### Dark Mode
+- System preference detection
+- Manual toggle
+- Persistent preference
+
+### Toast Notifications
+- Success messages
+- Error handling
+- Action feedback
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Next.js team for the excellent framework
+- Vercel for the hosting and database solutions
+- All contributors and maintainers
 
 <br>
 
+## Author
 
-## Steve Moya Cepeda ✒️
+Steve Moya Cepeda
 
 Soy Pionero en la tendencia de el Marketing 5.0 en Republica Dominicana 
 

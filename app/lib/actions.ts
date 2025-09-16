@@ -1,5 +1,4 @@
 'use server'
-// 👆 Esto se hace para marcar que todas las funciones que estan dentro de este archivo solo seran de servidor y no se ejecutaran ni se enviaran al cliente
 
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
