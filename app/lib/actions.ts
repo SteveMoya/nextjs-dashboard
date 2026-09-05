@@ -26,6 +26,11 @@ export async function authenticate(
         throw error;
     }
 }
+
+/** Inicia sesión con Google (NextAuth v5). Redirige al dashboard al terminar. */
+export async function signInWithGoogle() {
+    await signIn('google', { callbackUrl: '/dashboard' });
+}
 // Use Zod to update the expected types
 const FormSchema = z.object({
     id: z.string(),
