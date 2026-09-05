@@ -17,10 +17,19 @@ async function getUser(email: string): Promise<User | undefined> {
         throw new Error('Failed to fetch user.');
     }
 }
+
+/**
+ * Google OAuth es OPCIONAL: solo se habilita si las variables de entorno
+ * AUTH_GOOGLE_ID y AUTH_GOOGLE_SECRET están definidas en el servidor. Si no,
+ * la app sigue funcionando con el login por credenciales.
+ */
+const googleEnabled =
+    !!process.env.AUTH_GOOGLE_ID && !!process.env.AUTH_GOOGLE_SECRET;
+
 export const { auth, signIn, signOut, handlers } = NextAuth({
     ...authConfig,
     providers: [
-        Google,
+        ...(googleEnabled ? [Google] : []),
         Credentials({
             async authorize(credentials) {
                 const parsedCredentials = z

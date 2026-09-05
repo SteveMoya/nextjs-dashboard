@@ -44,7 +44,7 @@ A modern dashboard application built with Next.js 14, featuring authentication, 
 ### Prerequisites
 
 - Node.js 20 or later
-- npm or yarn
+- npm (gestor de paquetes único del proyecto)
 
 ### Installation
 
@@ -57,8 +57,6 @@ cd nextjs-dashboard
 2. Install dependencies:
 ```bash
 npm install
-# or
-yarn install
 ```
 
 3. Copy the example environment file:

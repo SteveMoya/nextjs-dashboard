@@ -9,6 +9,11 @@ export const metadata: Metadata = {
     metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
 };
 
+// Google OAuth es opcional: el botón solo se muestra si el servidor tiene
+// configuradas las variables AUTH_GOOGLE_ID / AUTH_GOOGLE_SECRET.
+const googleEnabled =
+    !!process.env.AUTH_GOOGLE_ID && !!process.env.AUTH_GOOGLE_SECRET;
+
 export default function LoginPage() {
     return (
         <main className="flex items-center justify-center md:h-screen">
@@ -18,7 +23,7 @@ export default function LoginPage() {
                         <AcmeLogo />
                     </div>
                 </div>
-                <LoginForm />
+                <LoginForm googleEnabled={googleEnabled} />
             </div>
         </main>
     );

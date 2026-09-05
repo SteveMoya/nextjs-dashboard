@@ -10,7 +10,7 @@ import { Button } from './button';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate, signInWithGoogle } from '@/app/lib/actions';
 
-export default function LoginForm() {
+export default function LoginForm({ googleEnabled }: { googleEnabled?: boolean }) {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
   return (
     <form className="space-y-3" action={dispatch}>
@@ -76,15 +76,19 @@ export default function LoginForm() {
           )}
         </div>
 
-        {/* Login alternativo con Google */}
-        <div className="my-3 flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500">
-          <span className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
-          o continúa con
-          <span className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
-        </div>
-        <form action={signInWithGoogle}>
-          <GoogleButton />
-        </form>
+        {/* Login alternativo con Google (solo si el servidor lo tiene configurado) */}
+        {googleEnabled && (
+          <>
+            <div className="my-3 flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500">
+              <span className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
+              o continúa con
+              <span className="h-px flex-1 bg-gray-200 dark:bg-gray-700" />
+            </div>
+            <form action={signInWithGoogle}>
+              <GoogleButton />
+            </form>
+          </>
+        )}
       </div>
     </form>
 
