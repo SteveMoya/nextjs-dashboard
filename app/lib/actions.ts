@@ -163,3 +163,100 @@ export async function deleteCustomer(id: string) {
         return { message: 'Database Error: Failed to Delete Customer.' };
     }
 }
+
+const CustomerFormSchema = z.object({
+    id: z.string(),
+    name: z
+        .string({ invalid_type_error: 'Please enter a customer name.' })
+        .min(1, 'Please enter a customer name.'),
+    email: z
+        .string({ invalid_type_error: 'Please enter a valid email.' })
+        .email('Please enter a valid email.'),
+    image_url: z.string().optional(),
+});
+const CreateCustomer = CustomerFormSchema.omit({ id: true });
+const UpdateCustomer = CustomerFormSchema.omit({ id: true });
+
+export type CustomerState = {
+    errors?: {
+        name?: string[];
+        email?: string[];
+        image_url?: string[];
+    };
+    message?: string | null;
+};
+
+/** Devuelve la URL de avatar por defecto (Vercel) si el form no trae imagen. */
+function avatarPorDefecto(nombre: string): string {
+    return `https://vercel.com/api/ui/avatars?seed=${encodeURIComponent(nombre)}`;
+}
+
+export async function createCustomer(
+    prevState: CustomerState,
+    formData: FormData,
+) {
+    const validatedFields = CreateCustomer.safeParse({
+        name: formData.get('name'),
+        email: formData.get('email'),
+        image_url: formData.get('imageUrl'),
+    });
+
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Missing Fields. Failed to Create Customer.',
+        };
+    }
+
+    const { name, email } = validatedFields.data;
+    const image_url =
+        validatedFields.data.image_url?.trim() || avatarPorDefecto(name);
+
+    try {
+        await sql`
+      INSERT INTO customers (name, email, image_url)
+      VALUES (${name}, ${email}, ${image_url})
+    `;
+    } catch (error) {
+        return { message: 'Database Error: Failed to Create Customer.' };
+    }
+
+    revalidatePath('/dashboard/customers');
+    redirect('/dashboard/customers');
+}
+
+export async function updateCustomer(
+    id: string,
+    prevState: CustomerState,
+    formData: FormData,
+) {
+    const validatedFields = UpdateCustomer.safeParse({
+        name: formData.get('name'),
+        email: formData.get('email'),
+        image_url: formData.get('imageUrl'),
+    });
+
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Missing Fields. Failed to Update Customer.',
+        };
+    }
+
+    const { name, email } = validatedFields.data;
+    const image_url =
+        validatedFields.data.image_url?.trim() || avatarPorDefecto(name);
+
+    try {
+        await sql`
+      UPDATE customers
+      SET name = ${name}, email = ${email}, image_url = ${image_url}
+      WHERE id = ${id}
+    `;
+    } catch (error) {
+        return { message: 'Database Error: Failed to Update Customer.' };
+    }
+
+    revalidatePath('/dashboard/customers');
+    redirect('/dashboard/customers');
+}

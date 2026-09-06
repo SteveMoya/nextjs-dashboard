@@ -1,24 +1,20 @@
 import Image from 'next/image';
 import { lusitana } from '@/app/ui/fonts';
-import Search from '@/app/ui/search';
-import type { CustomersTable, FormattedCustomersTable } from '@/app/lib/definitions';
+import { fetchFilteredCustomers } from '@/app/lib/data';
+import { UpdateCustomer, DeleteCustomer } from '@/app/ui/customers/buttons';
 
-
-export default async function CustomersTable(
-  {
-    customers,
-  }: {
-    customers: FormattedCustomersTable[];
-  }
-) {
-
+export default async function CustomersTable({
+  query,
+  currentPage,
+}: {
+  query: string;
+  currentPage: number;
+}) {
+  const customers = await fetchFilteredCustomers(query, currentPage);
+  const total = customers.length;
 
   return (
     <div className="w-full">
-      <h1 className={`${lusitana.className} mb-8 text-xl md:text-2xl dark:text-white`}>
-        Customers
-      </h1>
-      <Search placeholder="Search customers..." />
       <div className="mt-6 flow-root">
         <div className="overflow-x-auto">
           <div className="min-w-full align-middle">
@@ -51,15 +47,25 @@ export default async function CustomersTable(
                     <div className="flex w-full items-center justify-between border-b dark:border-gray-600 py-5">
                       <div className="flex w-1/2 flex-col">
                         <p className="text-xs dark:text-gray-300">Pending</p>
-                        <p className="font-medium dark:text-white">{customer.total_pending}</p>
+                        <p className="font-medium dark:text-white">
+                          {customer.total_pending}
+                        </p>
                       </div>
                       <div className="flex w-1/2 flex-col">
                         <p className="text-xs dark:text-gray-300">Paid</p>
-                        <p className="font-medium dark:text-white">{customer.total_paid}</p>
+                        <p className="font-medium dark:text-white">
+                          {customer.total_paid}
+                        </p>
                       </div>
                     </div>
-                    <div className="pt-4 text-sm">
-                      <p className="dark:text-gray-300">{customer.total_invoices} invoices</p>
+                    <div className="flex items-center justify-between pt-4 text-sm">
+                      <p className="dark:text-gray-300">
+                        {customer.total_invoices} invoices
+                      </p>
+                      <div className="flex justify-end gap-2">
+                        <UpdateCustomer id={customer.id} />
+                        <DeleteCustomer id={customer.id} />
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -81,6 +87,9 @@ export default async function CustomersTable(
                     </th>
                     <th scope="col" className="px-4 py-5 font-medium dark:text-gray-200">
                       Total Paid
+                    </th>
+                    <th scope="col" className="relative py-3 pl-6 pr-3">
+                      <span className="sr-only">Actions</span>
                     </th>
                   </tr>
                 </thead>
@@ -112,6 +121,12 @@ export default async function CustomersTable(
                       <td className="whitespace-nowrap bg-white dark:bg-gray-700 px-4 py-5 text-sm dark:text-gray-200 group-first-of-type:rounded-md group-last-of-type:rounded-md">
                         {customer.total_paid}
                       </td>
+                      <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                        <div className="flex justify-end gap-3">
+                          <UpdateCustomer id={customer.id} />
+                          <DeleteCustomer id={customer.id} />
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -120,6 +135,9 @@ export default async function CustomersTable(
           </div>
         </div>
       </div>
+      <p className="mt-3 text-sm text-gray-500 dark:text-gray-300">
+        {total} {total === 1 ? 'customer' : 'customers'}
+      </p>
     </div>
   );
 }
